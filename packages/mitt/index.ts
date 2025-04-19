@@ -1,12 +1,12 @@
-export type EventType = string | symbol
+export type EventType = string | symbol;
 
-export default function mitt (all?: any) {
+export default function mitt(all?: any) {
     all = all || new Map()
 
     return {
         all,
 
-        on (key: EventType, handler: Function) {
+        on(key: EventType, handler: Function) {
             if (all.has(key)) {
                 all.get(key).push(handler)
             } else {
@@ -14,7 +14,7 @@ export default function mitt (all?: any) {
             }
         },
 
-        emit (key: EventType, payload?: any) {
+        emit(key: EventType, payload?: any) {
             let handlers = all.get(key)
             handlers && handlers.forEach(fn => fn(payload))
 
@@ -22,7 +22,7 @@ export default function mitt (all?: any) {
             handlers && handlers.forEach(fn => fn(payload))
         },
 
-        off (key: EventType, handler?: Function) {
+        off(key: EventType, handler?: Function) {
             if (handler) {
                 const handlerList = all.get(key)
                 if (handlerList) {
@@ -33,7 +33,7 @@ export default function mitt (all?: any) {
             }
         },
 
-        clear () {
+        clear() {
             all.clear()
         }
     }

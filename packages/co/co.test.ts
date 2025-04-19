@@ -25,7 +25,8 @@ describe('co', () => {
       await co(function* () {
         return yield getErrorPromise()
       })
-    } catch (err) {
+    }
+    catch (err) {
       expect(err).toBe('error')
     }
   })
@@ -50,12 +51,12 @@ describe('co', () => {
     const result = await co(function* () {
       return yield {
         a: Promise.resolve(1),
-        b: Promise.resolve(2)
+        b: Promise.resolve(2),
       }
     })
     expect(result).toEqual({
       a: 1,
-      b: 2
+      b: 2,
     })
   })
 
@@ -70,21 +71,29 @@ describe('co', () => {
     })
     expect(result).toEqual([1, 2])
   })
+
+  it('should yield a string', async () => {
+    const result = await co(function* () {
+      return yield 'string'
+    })
+    expect(result).toBe('string')
+  })
 })
 
 // --------------------- helpers -----------------------
 function fetchData() {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     setTimeout(() => resolve(1), 10)
   })
 }
 
 function getErrorPromise() {
   return new Promise((_, reject) => {
-    setTimeout(() => reject('error'), 10);
-  });
+    // eslint-disable-next-line prefer-promise-reject-errors
+    setTimeout(() => reject('error'), 10)
+  })
 }
 
 function isPromise(val: any): val is Promise<unknown> {
-  return typeof val === 'object' && val !== null && typeof val.then === 'function';
+  return typeof val === 'object' && val !== null && typeof val.then === 'function'
 }

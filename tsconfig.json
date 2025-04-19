@@ -4,14 +4,20 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "paths": {
-      "@lib-study/*": ["./packages/*"]
+      "@lib-study/*": [
+        "./packages/*"
+      ]
     },
     "resolveJsonModule": true,
-    "types": ["vitest/globals"],
+    "types": [
+      "vitest/globals"
+    ],
     "strict": true,
-    "declaration": true,
     "sourceMap": true,
     "esModuleInterop": true,
     "skipLibCheck": true
-  }
+  },
+  "include": [
+    "packages/**/*.ts"
+  ]
 }
